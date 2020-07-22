@@ -6,12 +6,17 @@ namespace ProductivityTools.SeleniumExtensions
 {
     public static class Extensions
     {
-        public static IWebElement GetElementByInnerText(this IWebElement parent, string tag, string text)
+        public static IWebElement FindElementByInnerText(this IWebElement parent, string tag, string text, bool printInnerHtml=false)
         {
             var tags = parent.FindElements(By.TagName(tag));
             foreach (var item in tags)
             {
                 var x = item.GetAttribute("innerHTML");
+                if (printInnerHtml)
+                {
+                    Console.WriteLine(x);
+                }
+
                 if (x == text)
                 {
                     return item;
