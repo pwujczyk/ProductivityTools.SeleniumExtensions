@@ -19,5 +19,11 @@ namespace ProductivityTools.SeleniumExtensions
             }
             return null;
         }
+
+        public static ReadOnlyCollection<IWebElement> FindElementsByIdPart(this IWebElement parent, string idPart)
+        {
+            var result= parent.FindElements(By.CssSelector($"[id*='{idPart}']"));
+            return result;
+        }
     }
 }
