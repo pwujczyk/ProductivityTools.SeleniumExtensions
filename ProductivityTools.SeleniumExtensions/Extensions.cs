@@ -25,6 +25,30 @@ namespace ProductivityTools.SeleniumExtensions
             return null;
         }
 
+        public static ReadOnlyCollection<IWebElement> FindElementsByMultipleClass(this IWebElement parent, string @class, bool printInnerHtml = false)
+        {
+            var r=parent.FindElements(By.XPath($"//*[@class='{@class}']"));
+            return r; 
+        }
+
+        public static IWebElement FindElementByMultipleClass(this IWebElement parent, string @class, bool printInnerHtml = false)
+        {
+            var r = parent.FindElement(By.XPath($"//*[@class='{@class}']"));
+            return r;
+        }
+
+        public static string InnerHtml(this IWebElement parent)
+        {
+            var r = parent.GetAttribute("innerHTML");
+            return r;
+        }
+
+        public static string InnerText(this IWebElement parent)
+        {
+            var r = parent.GetAttribute("innerText");
+            return r;
+        }
+
         public static ReadOnlyCollection<IWebElement> FindElementsByIdPart(this IWebElement parent, string idPart)
         {
             var result= parent.FindElements(By.CssSelector($"[id*='{idPart}']"));
