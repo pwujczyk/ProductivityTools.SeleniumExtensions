@@ -1,6 +1,7 @@
 ﻿using OpenQA.Selenium;
 using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace ProductivityTools.SeleniumExtensions
 {
@@ -47,6 +48,16 @@ namespace ProductivityTools.SeleniumExtensions
         {
             var r = parent.GetAttribute("innerText");
             return r;
+        }
+
+        public static string InnersText(this ReadOnlyCollection<IWebElement> parent)
+        {
+            var result = string.Empty;
+            foreach (var item in parent)
+            {
+                result += item.InnerText();
+            }
+            return result;
         }
 
         public static ReadOnlyCollection<IWebElement> FindElementsByIdPart(this IWebElement parent, string idPart)
