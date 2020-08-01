@@ -55,9 +55,15 @@ namespace ProductivityTools.SeleniumExtensions
             var result = string.Empty;
             foreach (var item in parent)
             {
-                result += item.InnerText();
+                result += item.InnerText().Trim()+" ";
             }
             return result;
+        }
+
+        public static IWebElement Parent(this IWebElement element)
+        {
+            var r=element.FindElement(By.XPath(".."));
+            return r;
         }
 
         public static ReadOnlyCollection<IWebElement> FindElementsByIdPart(this IWebElement parent, string idPart)
