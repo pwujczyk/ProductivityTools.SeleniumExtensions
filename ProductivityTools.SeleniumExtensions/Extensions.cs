@@ -7,7 +7,7 @@ namespace ProductivityTools.SeleniumExtensions
 {
     public static class Extensions
     {
-        public static IWebElement FindElementByInnerText(this IWebElement parent, string tag, string text, bool printInnerHtml=false)
+        public static IWebElement FindElementByInnerText(this IWebElement parent, string tag, string text, bool printInnerHtml = false)
         {
             var tags = parent.FindElements(By.TagName(tag));
             foreach (var item in tags)
@@ -28,13 +28,21 @@ namespace ProductivityTools.SeleniumExtensions
 
         public static ReadOnlyCollection<IWebElement> FindElementsByMultipleClass(this IWebElement parent, string @class, bool printInnerHtml = false)
         {
-            var r=parent.FindElements(By.XPath($"//*[@class='{@class}']"));
-            return r; 
+            var r = parent.FindElements(By.XPath($"//*[@class='{@class}']"));
+            return r;
         }
 
-        public static IWebElement FindElementByMultipleClass(this IWebElement parent, string @class, bool printInnerHtml = false)
+        public static IWebElement FindElementByMultipleClass(this IWebElement element, string @class, bool printInnerHtml = false)
         {
-            var r = parent.FindElement(By.XPath($"//*[@class='{@class}']"));
+            if (printInnerHtml)
+            {
+                Console.WriteLine();
+                Console.WriteLine($"===we are looking element by {@class} in the following html");
+                Console.WriteLine(element.InnerHtml());
+                Console.WriteLine("---");
+            }
+            var r = element.FindElement(By.XPath($"//*[@class='{@class}']"));
+            Console.WriteLine(r.InnerHtml());
             return r;
         }
 
@@ -44,8 +52,14 @@ namespace ProductivityTools.SeleniumExtensions
             return r;
         }
 
-        public static string InnerText(this IWebElement parent)
+        public static string InnerText(this IWebElement parent, bool printInnerHtml = false)
         {
+            if (printInnerHtml)
+            {
+                Console.WriteLine();
+                Console.WriteLine($"===InnerHtml:");
+                Console.WriteLine(parent.InnerHtml());
+            }
             var r = parent.GetAttribute("innerText");
             return r;
         }
@@ -55,20 +69,20 @@ namespace ProductivityTools.SeleniumExtensions
             var result = string.Empty;
             foreach (var item in parent)
             {
-                result += item.InnerText().Trim()+" ";
+                result += item.InnerText().Trim() + " ";
             }
             return result;
         }
 
         public static IWebElement Parent(this IWebElement element)
         {
-            var r=element.FindElement(By.XPath(".."));
+            var r = element.FindElement(By.XPath(".."));
             return r;
         }
 
         public static ReadOnlyCollection<IWebElement> FindElementsByIdPart(this IWebElement parent, string idPart)
         {
-            var result= parent.FindElements(By.CssSelector($"[id*='{idPart}']"));
+            var result = parent.FindElements(By.CssSelector($"[id*='{idPart}']"));
             return result;
         }
     }
