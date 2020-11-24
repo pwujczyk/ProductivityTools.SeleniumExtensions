@@ -42,7 +42,6 @@ namespace ProductivityTools.SeleniumExtensions
                 Console.WriteLine("---");
             }
             var r = element.FindElement(By.XPath($"//*[@class='{@class}']"));
-            Console.WriteLine(r.InnerHtml());
             return r;
         }
 
